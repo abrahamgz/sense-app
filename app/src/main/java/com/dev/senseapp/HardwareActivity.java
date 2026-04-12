@@ -4,6 +4,8 @@ import android.content.Context;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -19,6 +21,7 @@ public class HardwareActivity extends AppCompatActivity {
     private TextView tvStateLantern;
 
     private CameraManager cameraManager;
+    private Vibrator vibrator;
     private String cameraId;
 
     private boolean isLanternOn = false;
@@ -48,6 +51,8 @@ public class HardwareActivity extends AppCompatActivity {
 
     private void initManagers() {
         cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
         try {
             cameraId = cameraManager.getCameraIdList()[0];
         } catch (CameraAccessException e) {
@@ -59,16 +64,21 @@ public class HardwareActivity extends AppCompatActivity {
         isLanternOn = !isLanternOn;
         try {
             cameraManager.setTorchMode(cameraId, isLanternOn);
+            vibrate();
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
 
-        if (isLanternOn == true) {
+        if (isLanternOn) {
             tvStateLantern.setText("Encendida");
             tvStateLantern.setTextColor(0xFF008F39);
         } else {
             tvStateLantern.setText("Apagada");
             tvStateLantern.setTextColor(0xFFD32F2F);
         }
+    }
+
+    private void vibrate() {
+        vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
     }
 }
