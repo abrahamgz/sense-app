@@ -3,9 +3,12 @@ package com.dev.senseapp;
 import android.content.Context;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.os.VibratorManager;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -21,8 +24,10 @@ public class HardwareActivity extends AppCompatActivity {
     private TextView tvStateLantern;
 
     private CameraManager cameraManager;
-    private Vibrator vibrator;
     private String cameraId;
+
+    private Vibrator vibrator;
+    private VibratorManager vibratorManager;
 
     private boolean isLanternOn = false;
 
@@ -39,7 +44,6 @@ public class HardwareActivity extends AppCompatActivity {
 
         initViews();
         initManagers();
-
     }
 
     private void initViews() {
@@ -51,7 +55,15 @@ public class HardwareActivity extends AppCompatActivity {
 
     private void initManagers() {
         cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            Log.d("InitManagers", "Version android 12 a más");
+            vibratorManager = (VibratorManager) getSystemService(Context.VIBRATOR_MANAGER_SERVICE);
+            vibrator = vibratorManager.getDefaultVibrator();
+        } else {
+            Log.d("InitManagers", "Version android 11 a menos");
+            vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        }
 
         try {
             cameraId = cameraManager.getCameraIdList()[0];
