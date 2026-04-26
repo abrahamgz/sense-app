@@ -21,12 +21,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.dev.senseapp.databinding.ActivityHardwareBinding;
+
 public class HardwareActivity extends AppCompatActivity {
 
-    private CardView cardLantern;
-    private TextView tvStateLantern;
-    private CardView cardNetwork;
-    private TextView tvStateNetwork;
+    private ActivityHardwareBinding binding;
 
     private CameraManager cameraManager;
     private String cameraId;
@@ -41,26 +40,17 @@ public class HardwareActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_hardware);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        binding = ActivityHardwareBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         initViews();
         initManagers();
     }
 
     private void initViews() {
-        cardLantern = findViewById(R.id.cardLantern);
-        tvStateLantern = findViewById(R.id.tvStateLantern);
-
-        cardNetwork = findViewById(R.id.cardNetwork);
-        tvStateNetwork = findViewById(R.id.tvStateNetwork);
-
-        cardLantern.setOnClickListener(v -> toggleLantern());
-        cardNetwork.setOnClickListener(v-> checkInternetConnection());
+        binding.cardLantern.setOnClickListener(v -> toggleLantern());
+        binding.cardNetwork.setOnClickListener(v-> checkInternetConnection());
     }
 
     private void initManagers() {
@@ -93,11 +83,11 @@ public class HardwareActivity extends AppCompatActivity {
         }
 
         if (isLanternOn) {
-            tvStateLantern.setText("Encendida");
-            tvStateLantern.setTextColor(0xFF008F39);
+            binding.tvStateLantern.setText("Encendida");
+            binding.tvStateLantern.setTextColor(0xFF008F39);
         } else {
-            tvStateLantern.setText("Apagada");
-            tvStateLantern.setTextColor(0xFFD32F2F);
+            binding.tvStateLantern.setText("Apagada");
+            binding.tvStateLantern.setTextColor(0xFFD32F2F);
         }
     }
 
@@ -116,20 +106,20 @@ public class HardwareActivity extends AppCompatActivity {
         NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
 
         if (capabilities == null || !capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
-            tvStateNetwork.setText("Sin conexión");
-            tvStateNetwork.setTextColor(0xFFD32F2F);
+            binding.tvStateNetwork.setText("Sin conexión");
+            binding.tvStateNetwork.setTextColor(0xFFD32F2F);
             return;
         }
 
         if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-            tvStateNetwork.setText("Conectado (WiFi)");
-            tvStateNetwork.setTextColor(0xFF008F39);
+            binding.tvStateNetwork.setText("Conectado (WiFi)");
+            binding.tvStateNetwork.setTextColor(0xFF008F39);
         } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-            tvStateNetwork.setText("Conectado (Datos Móviles)");
-            tvStateNetwork.setTextColor(0xFF1976D2);
+            binding.tvStateNetwork.setText("Conectado (Datos Móviles)");
+            binding.tvStateNetwork.setTextColor(0xFF1976D2);
         } else {
-            tvStateNetwork.setText("Conectado (Otro)");
-            tvStateNetwork.setTextColor(0xFF008F39);
+            binding.tvStateNetwork.setText("Conectado (Otro)");
+            binding.tvStateNetwork.setTextColor(0xFF008F39);
         }
     }
 }
