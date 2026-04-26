@@ -32,17 +32,25 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
         });
 
         textView = findViewById(R.id.textView);
-
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        if (sensorManager != null) {
-            lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-            if (lightSensor != null) {
-                sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
-            } else {
-                textView.setText("El dispositivo no tiene sensor de luz.");
-            }
+        initManagers();
+    }
+
+    private void initManagers() {
+        if (sensorManager == null) {
+            textView.setText("No se inicializó el sensor manager");
+            return;
         }
+
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+
+        if (lightSensor == null) {
+            textView.setText("El dispositivo no tiene sensor de luz.");
+            return;
+        }
+
+        sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
