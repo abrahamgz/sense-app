@@ -15,10 +15,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class SensorActivity extends AppCompatActivity implements SensorEventListener {
-    private TextView textView;
+    private TextView tvLight;
+    private TextView tvAccel;
 
     private SensorManager sensorManager;
     private Sensor lightSensor;
+    private Sensor accelSensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,8 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
             return insets;
         });
 
-        textView = findViewById(R.id.textView);
+        tvLight = findViewById(R.id.tvLight);
+        tvAccel = findViewById(R.id.tvAccel);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         initManagers();
@@ -39,19 +42,26 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
     private void initManagers() {
         if (sensorManager == null) {
-            textView.setText("No se inicializó el sensor manager");
+            tvLight.setText("No se inicializó el sensor manager");
             return;
         }
 
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        accelSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         if (lightSensor == null) {
-            textView.setText("El dispositivo no tiene sensor de luz.");
+            tvLight.setText("El dispositivo no tiene sensor de luz.");
             return;
         }
 
+        if (accelSensor == null) {
+            tvAccel.setText("El equipo no tiene acelerometro");
+        }
+
         sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, accelSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
+
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
@@ -62,8 +72,17 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
             float luz = sensorEvent.values[0];
-            textView.setText("Luz ambiental: " + luz + " lux");
+            tvLight.setText("Luz ambiental: " + luz + " lux");
         }
+
+        if(sensorEvent.sensor.getType() ==Sensor.TYPE_ACCELEROMETER){
+            float x=sensorEvent.values[0];
+            float y=sensorEvent.values[1];
+            float z=sensorEvent.values[2];
+
+            tvAccel.setText("Acelerometro: \nx:"+x+"\ny:"+y+"\nz:"+z);
+        }
+
     }
 
     @Override
