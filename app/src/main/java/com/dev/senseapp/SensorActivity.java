@@ -75,10 +75,10 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
             tvLight.setText("Luz ambiental: " + luz + " lux");
         }
 
-        if(sensorEvent.sensor.getType() ==Sensor.TYPE_ACCELEROMETER){
-            float x=sensorEvent.values[0];
-            float y=sensorEvent.values[1];
-            float z=sensorEvent.values[2];
+        if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            float x = sensorEvent.values[0];
+            float y = sensorEvent.values[1];
+            float z = sensorEvent.values[2];
 
             tvAccel.setText("Acelerometro: \nx:"+x+"\ny:"+y+"\nz:"+z);
         }
