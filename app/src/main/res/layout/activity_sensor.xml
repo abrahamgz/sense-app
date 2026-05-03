@@ -25,5 +25,17 @@
         android:gravity="center"
         android:padding="20dp"/>
 
+    <Button
+        android:id="@+id/btnInitBackgroundProcess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Iniciar proceso en segundo plano" />
+
+    <Button
+        android:id="@+id/btnKeepScreenOn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mantener la pantalla encendida" />
+
 
 </LinearLayout>

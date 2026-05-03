@@ -5,7 +5,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -17,10 +19,16 @@ import androidx.core.view.WindowInsetsCompat;
 public class SensorActivity extends AppCompatActivity implements SensorEventListener {
     private TextView tvLight;
     private TextView tvAccel;
+    private Button btnInitBackgroundProcess;
+    private Button btnKeepScreenOn;
 
     private SensorManager sensorManager;
     private Sensor lightSensor;
     private Sensor accelSensor;
+
+    private PowerManager powerManager;
+    private PowerManager.WakeLock screenWakeLock;
+    private PowerManager.WakeLock processWakeLock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +43,14 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
         tvLight = findViewById(R.id.tvLight);
         tvAccel = findViewById(R.id.tvAccel);
+        btnInitBackgroundProcess = findViewById(R.id.btnInitBackgroundProcess);
+        btnKeepScreenOn = findViewById(R.id.btnKeepScreenOn);
+
+        btnKeepScreenOn.setOnClickListener(v -> keepScreenOn(btnKeepScreenOn));
+        //btnKeepScreenOn.setOnClickListener(v -> initWakeLock());
+
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        powerManager = (PowerManager) getSystemService(POWER_SERVICE);
 
         initManagers();
     }
@@ -46,8 +61,15 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
             return;
         }
 
+        if (powerManager == null) {
+            return;
+        }
+
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         accelSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        screenWakeLock = powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE, "SenseApp:ScreenWakeLock");
+        processWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "SenseApp:ProcessWakeLock");
 
         if (lightSensor == null) {
             tvLight.setText("El dispositivo no tiene sensor de luz.");
@@ -85,6 +107,22 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
     }
 
+    private void keepScreenOn(Button button) {
+        if (screenWakeLock == null) {
+            return;
+        }
+
+        if (screenWakeLock.isHeld()) {
+            screenWakeLock.release();
+            button.setText("Mantener la pantalla encendida");
+            return;
+        }
+
+        screenWakeLock.acquire();
+        button.setText("Liberar WakeLock de pantalla");
+
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -97,8 +135,14 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
         super.onResume();
         Log.i("SensorActiviy", "Se ha reanudado la aplicación");
         if (lightSensor != null) {
-            sensorManager.registerListener(this, lightSensor,
-                    SensorManager.SENSOR_DELAY_NORMAL);
+            sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        //finishWakeLock();
     }
 }
