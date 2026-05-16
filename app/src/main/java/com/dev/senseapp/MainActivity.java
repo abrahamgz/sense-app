@@ -31,17 +31,21 @@ public class MainActivity extends AppCompatActivity {
 
         btnHardware = findViewById(R.id.btnHardware);
         btnSensor = findViewById(R.id.btnSensor);
-        btnTelephony=findViewById(R.id.btnTelephony);
-        btnAudio=findViewById(R.id.btnAudio);
+        btnTelephony = findViewById(R.id.btnTelephony);
+        btnAudio = findViewById(R.id.btnAudio);
 
-        btnHardware.setOnClickListener(v -> goToHardwareActivity());
-        btnSensor.setOnClickListener(v -> goToSensorActivity());
-        btnTelephony.setOnClickListener(V->goToTelephonyActivity());
-        btnAudio.setOnClickListener(V->goToAudioActivity());
-
-        //btnSensor.setOnClickListener(v -> goya ToActivity(SensorActivity));
+        btnHardware.setOnClickListener(v -> goToActivity(HardwareActivity.class));
+        btnSensor.setOnClickListener(v -> goToActivity(SensorActivity.class));
+        btnTelephony.setOnClickListener(V -> goToActivity(TelephonyActivity.class));
+        btnAudio.setOnClickListener(V -> goToActivity(AudioActivity.class));
     }
 
+    private void goToActivity(Class<? extends AppCompatActivity> activity) {
+        Intent intent = new Intent(this, activity);
+        startActivity(intent);
+    }
+
+    /*
     private void goToHardwareActivity() {
         Intent intent = new Intent(this, HardwareActivity.class);
         startActivity(intent);
@@ -52,19 +56,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-/*    private void goToActivity(AppCompatActivity activity) {
-        Intent intent = new Intent(this, activity.class);
-        startActivity(intent);
-    }*/
-
-    private void goToTelephonyActivity(){
-        Intent intent = new Intent(this,TelephonyActivity.class);
+    private void goToTelephonyActivity() {
+        Intent intent = new Intent(this, TelephonyActivity.class);
         startActivity(intent);
     }
 
 
-    private  void goToAudioActivity(){
-        Intent intent = new Intent(this,AudioActivity.class);
+    private void goToAudioActivity() {
+        Intent intent = new Intent(this, AudioActivity.class);
         startActivity(intent);
     }
+    */
 }
