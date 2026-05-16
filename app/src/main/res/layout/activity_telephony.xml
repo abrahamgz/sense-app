@@ -10,29 +10,40 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#1E1E1E"
+        android:textSize="28sp"
+        android:textStyle="bold"
         android:text="Información del teléfono" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
         android:text="Operador" />
 
     <TextView
         android:id="@+id/tvOperator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="16sp"
         android:text="" />
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
         android:text="Pais" />
 
     <TextView
         android:id="@+id/tvCountry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="16sp"
         android:text="" />
 
 
