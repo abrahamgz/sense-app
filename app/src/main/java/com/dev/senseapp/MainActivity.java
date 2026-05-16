@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     Button btnSensor;
     Button btnTelephony;
 
+    Button btnAudio;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
         btnHardware = findViewById(R.id.btnHardware);
         btnSensor = findViewById(R.id.btnSensor);
         btnTelephony=findViewById(R.id.btnTelephony);
+        btnAudio=findViewById(R.id.btnAudio);
 
         btnHardware.setOnClickListener(v -> goToHardwareActivity());
         btnSensor.setOnClickListener(v -> goToSensorActivity());
         btnTelephony.setOnClickListener(V->goToTelephonyActivity());
+        btnAudio.setOnClickListener(V->goToAudioActivity());
 
         //btnSensor.setOnClickListener(v -> goya ToActivity(SensorActivity));
     }
@@ -55,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void goToTelephonyActivity(){
         Intent intent = new Intent(this,TelephonyActivity.class);
+        startActivity(intent);
+    }
+
+
+    private  void goToAudioActivity(){
+        Intent intent = new Intent(this,AudioActivity.class);
         startActivity(intent);
     }
 }
