@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnHardware;
     Button btnSensor;
+    Button btnTelephony;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +29,11 @@ public class MainActivity extends AppCompatActivity {
 
         btnHardware = findViewById(R.id.btnHardware);
         btnSensor = findViewById(R.id.btnSensor);
+        btnTelephony=findViewById(R.id.btnTelephony);
 
         btnHardware.setOnClickListener(v -> goToHardwareActivity());
         btnSensor.setOnClickListener(v -> goToSensorActivity());
+        btnTelephony.setOnClickListener(V->goToTelephonyActivity());
 
         //btnSensor.setOnClickListener(v -> goya ToActivity(SensorActivity));
     }
@@ -49,4 +52,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, activity.class);
         startActivity(intent);
     }*/
+
+    private void goToTelephonyActivity(){
+        Intent intent = new Intent(this,TelephonyActivity.class);
+        startActivity(intent);
+    }
 }

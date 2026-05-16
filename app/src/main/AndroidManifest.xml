@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SenseApp">
         <activity
+            android:name=".TelephonyActivity"
+            android:exported="false" />
+        <activity
             android:name=".SensorActivity"
             android:exported="true" />
         <activity
