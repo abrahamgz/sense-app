@@ -1,9 +1,11 @@
 package com.dev.senseapp;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.telephony.emergency.EmergencyNumber;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -15,6 +17,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.List;
+import java.util.Map;
+
 public class TelephonyActivity extends AppCompatActivity {
 
     TelephonyManager telephonyManager;
@@ -22,6 +27,7 @@ public class TelephonyActivity extends AppCompatActivity {
     private TextView tvOperator;
     private TextView tvCountry;
 
+    @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +45,18 @@ public class TelephonyActivity extends AppCompatActivity {
         String operator = telephonyManager.getNetworkOperatorName();
         String country = telephonyManager.getNetworkCountryIso();
 
+        /*
+        int phoneType = telephonyManager.getPhoneType();
+        String lineNumber = telephonyManager.getLine1Number();
+        Map<Integer, List<EmergencyNumber>>  numberList = telephonyManager.getEmergencyNumberList();
+        Log.d("TAG", numberList.toString());
+        */
 
         tvOperator = findViewById(R.id.tvOperator);
         tvCountry = findViewById(R.id.tvCountry);
 
         tvOperator.setText(operator);
         tvCountry.setText(country);
-
-
     }
 
     private void requestPermissions() {
