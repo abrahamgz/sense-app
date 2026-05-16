@@ -46,6 +46,8 @@ public class TelephonyActivity extends AppCompatActivity {
         String country = telephonyManager.getNetworkCountryIso();
 
         /*
+        Para más información: https://developer.android.com/reference/android/telephony/TelephonyManager#public-methods_1
+
         int phoneType = telephonyManager.getPhoneType();
         String lineNumber = telephonyManager.getLine1Number();
         Map<Integer, List<EmergencyNumber>>  numberList = telephonyManager.getEmergencyNumberList();
