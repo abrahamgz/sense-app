@@ -123,6 +123,17 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
     }
 
+    private void initBackgroundProcess(Button button) {
+        if (screenWakeLock == null) {
+            return;
+        }
+
+        button.setEnabled(false);
+        button.setText("Procesando tarea...");
+
+        processWakeLock.acquire(10 * 1000L);
+    }
+
     @Override
     protected void onPause() {
         super.onPause();

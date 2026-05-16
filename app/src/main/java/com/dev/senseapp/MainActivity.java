@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         btnHardware.setOnClickListener(v -> goToHardwareActivity());
         btnSensor.setOnClickListener(v -> goToSensorActivity());
 
-        //btnSensor.setOnClickListener(v -> goToActivity(SensorActivity));
+        //btnSensor.setOnClickListener(v -> goya ToActivity(SensorActivity));
     }
 
     private void goToHardwareActivity() {
