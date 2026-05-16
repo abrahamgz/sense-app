@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,9 @@ import androidx.core.view.WindowInsetsCompat;
 public class TelephonyActivity extends AppCompatActivity {
 
     TelephonyManager telephonyManager;
+
+    private TextView tvOperator;
+    private TextView tvCountry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +39,14 @@ public class TelephonyActivity extends AppCompatActivity {
         String operator = telephonyManager.getNetworkOperatorName();
         String country = telephonyManager.getNetworkCountryIso();
 
-        Log.d("TelephonyActivity", "Mi operador es " + operator);
-        Log.d("TelephonyActivity", "Mi país es " + country);
+
+        tvOperator = findViewById(R.id.tvOperator);
+        tvCountry = findViewById(R.id.tvCountry);
+
+        tvOperator.setText(operator);
+        tvCountry.setText(country);
+
+
     }
 
     private void requestPermissions() {

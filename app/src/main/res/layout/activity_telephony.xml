@@ -11,4 +11,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Información del teléfono" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Operador" />
+
+    <TextView
+        android:id="@+id/tvOperator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pais" />
+
+    <TextView
+        android:id="@+id/tvCountry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+
 </LinearLayout>
