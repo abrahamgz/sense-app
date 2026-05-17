@@ -14,9 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class AudioActivity extends AppCompatActivity {
 
-    private SeekBar sbMusic;
-    private TextView tvMusicVol;
-
+    private SeekBar sbMusic, sbAlarm;
+    private TextView tvMusicVol, tvAlarmVol;
     private AudioManager audioManager;
 
     @Override
@@ -33,6 +32,7 @@ public class AudioActivity extends AppCompatActivity {
         initManager();
         initViews();
         configurateMusicSeekBar();
+        configurateAlarmaSeekBar();
 
         /*
         int musicVol = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
@@ -50,16 +50,20 @@ public class AudioActivity extends AppCompatActivity {
 
     private void initManager() {
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
     }
 
     private void initViews() {
         tvMusicVol = findViewById(R.id.tvMusicVol);
         sbMusic = findViewById(R.id.sbMusic);
+        tvMusicVol = findViewById(R.id.tvMusicVol);
+        sbAlarm = findViewById(R.id.sbAlarm);
     }
 
     private void configurateMusicSeekBar() {
         int currentVol = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
         int maxVol = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+
 
         sbMusic.setMax(maxVol);
         sbMusic.setProgress(currentVol);
@@ -80,5 +84,37 @@ public class AudioActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+    }
+
+
+    private void configurateAlarmaSeekBar() {
+        int currentVol = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+        int maxVol = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+
+        sbAlarm.setMax(maxVol);
+        sbAlarm.setProgress(currentVol);
+        tvAlarmVol.setText(currentVol + "/" + maxVol);
+
+        sbAlarm.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                audioManager.setStreamVolume(AudioManager.STREAM_ALARM, progress, 0);
+                tvAlarmVol.setText(progress + "/" + maxVol);
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
     }
 }
