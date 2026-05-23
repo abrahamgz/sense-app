@@ -29,7 +29,6 @@ public class AudioActivity extends AppCompatActivity {
             return insets;
         });
 
-
         initManager();
         initViews();
         configurateMusicSeekBar();
@@ -115,7 +114,5 @@ public class AudioActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 }
