@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     Button btnSensor;
     Button btnTelephony;
 
+    Button btnWifi;
+
     Button btnAudio;
 
     @Override
@@ -33,11 +35,14 @@ public class MainActivity extends AppCompatActivity {
         btnSensor = findViewById(R.id.btnSensor);
         btnTelephony = findViewById(R.id.btnTelephony);
         btnAudio = findViewById(R.id.btnAudio);
+        btnWifi =findViewById(R.id.btnWifi);
+
 
         btnHardware.setOnClickListener(v -> goToActivity(HardwareActivity.class));
         btnSensor.setOnClickListener(v -> goToActivity(SensorActivity.class));
         btnTelephony.setOnClickListener(V -> goToActivity(TelephonyActivity.class));
         btnAudio.setOnClickListener(V -> goToActivity(AudioActivity.class));
+        btnWifi.setOnClickListener(V ->goToActivity(WifiActiviy.class));
     }
 
     private void goToActivity(Class<? extends AppCompatActivity> activity) {
