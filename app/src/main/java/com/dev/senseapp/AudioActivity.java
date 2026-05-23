@@ -29,6 +29,7 @@ public class AudioActivity extends AppCompatActivity {
             return insets;
         });
 
+
         initManager();
         initViews();
         configurateMusicSeekBar();
@@ -56,7 +57,7 @@ public class AudioActivity extends AppCompatActivity {
     private void initViews() {
         tvMusicVol = findViewById(R.id.tvMusicVol);
         sbMusic = findViewById(R.id.sbMusic);
-        tvMusicVol = findViewById(R.id.tvMusicVol);
+        tvAlarmVol = findViewById(R.id.tvAlarmVol);
         sbAlarm = findViewById(R.id.sbAlarm);
     }
 
