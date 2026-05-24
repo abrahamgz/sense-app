@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnWifi;
 
     Button btnAudio;
+    Button btnTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         btnTelephony = findViewById(R.id.btnTelephony);
         btnAudio = findViewById(R.id.btnAudio);
         btnWifi =findViewById(R.id.btnWifi);
+        btnTest=findViewById(R.id.btnTest);
 
 
         btnHardware.setOnClickListener(v -> goToActivity(HardwareActivity.class));
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         btnTelephony.setOnClickListener(V -> goToActivity(TelephonyActivity.class));
         btnAudio.setOnClickListener(V -> goToActivity(AudioActivity.class));
         btnWifi.setOnClickListener(V ->goToActivity(WifiActiviy.class));
+        btnTest.setOnClickListener(V->goToActivity(TestActivity.class));
     }
 
     private void goToActivity(Class<? extends AppCompatActivity> activity) {
