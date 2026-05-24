@@ -36,6 +36,18 @@ public class TestActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        unregisterReceiver(chargerReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         IntentFilter filter = new IntentFilter(Intent.ACTION_POWER_CONNECTED);
         registerReceiver(chargerReceiver, filter);
